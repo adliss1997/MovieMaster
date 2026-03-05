@@ -1,0 +1,1064 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    min-height: 100vh;
+    background-color: #0D0C1A;
+    font-family: 'Inter', sans-serif;
+}
+
+.sidebar {
+    width: 320px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0D0C1A 100%);
+    color: white;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 155, 0, 0.1);
+    
+    /* ✅ Internal scroll only - NO position: fixed on desktop! */
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-shrink: 0;  /* ✅ Don't shrink in flex container */
+}
+
+/* Add to your CSS - Responsive Sidebar Styles */
+
+/* Hide hamburger on larger screens */
+.menu-toggle {
+    display: none;
+}
+
+/* Tablet - smaller sidebar */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 280px;
+        padding: 1.5rem;
+    }
+}
+
+/* Mobile - hidden by default, becomes slide-out menu */
+@media (max-width: 768px) {
+    body {
+        position: relative;
+    }
+    body.sidebar-open {
+        overflow: hidden;  /* ✅ Disable body scroll */
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+    .sidebar {
+        position: fixed;
+        left: -380px;  /* Hidden off-screen */
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    }
+    
+    .sidebar.active {
+        left: 0;  /* Show when active */
+    }
+    
+    /* Hamburger menu button */
+    .menu-toggle {
+        display: flex !important;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1001;
+        background: #ff9b00;
+        color: white;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        border: none;
+    }
+    
+    /* Overlay when sidebar is open */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+        backdrop-filter: blur(2px);
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+    
+    /* Adjust main content for mobile */
+    main {
+        padding: 1rem;
+        padding-top: 4rem;  /* Space for hamburger */
+    }
+}
+
+main {
+    flex: 1;
+    padding: 2rem;
+    background-color: #1a1a1a;
+    color: white;
+    height: 100vh;           
+    overflow-y: auto;        
+    scrollbar-gutter: stable;
+}
+
+.search-section {
+    margin-bottom: 2rem;
+}
+
+.search-container {
+    display: flex;
+    max-height: 3rem;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    background-color: #242424;
+    border-radius: 50px;
+    border: 2px solid #242424;
+    overflow: hidden;
+    margin: 0 auto;  
+}
+
+#searchInput {
+    flex: 1;
+    padding: 1rem 1rem;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    width: 100%;  
+}
+
+#searchInput::placeholder {
+    color: #7f7696;           
+    opacity: 1;
+    font-size: 1rem;   
+}
+
+#searchBtn {
+    width: 56px;
+    height: 56px;
+    margin: 0.2rem 0rem;           
+    background: linear-gradient(to right bottom, #ff9b00, #fc8300, #f86900, #f24c05, #eb2412);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50%;    
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    font-size: 1.3rem;    
+}
+
+#searchBtn:hover {
+    background: linear-gradient(to right bottom, #ff6f00, #fc5400, #eb2412);; 
+}
+
+/* Home Button */
+.home-btn {
+    position: absolute;
+    top: 50%;              /* Center vertically */
+    transform: translateY(-50%);  /* Perfect vertical alignment */
+    right: 0;               /* Far right */
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.home-btn:hover {
+    border-color: #ff9b00;
+    background: rgba(255, 155, 0, 0.1);
+}
+
+.home-btn .material-icons {
+    font-size: 22px;
+}
+
+/* Action buttons container for movie details */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Heart button for movie details page */
+.details-heart-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.details-heart-btn:hover {
+    border-color: #ff4b4b;
+    transform: scale(1.05);
+    background: rgba(255, 75, 75, 0.1);
+}
+
+.details-heart-btn .material-icons {
+    font-size: 24px;
+}
+
+.details-heart-btn.liked .material-icons {
+    color: #ff4b4b;
+}
+
+/* Right side action buttons (home and liked) */
+.action-buttons-right {
+    position: fixed;
+    right: 2rem;
+    float: right;  /* This makes it stay in place */
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    z-index: 100;
+    margin-bottom: 1rem;
+    background-color: #242424;
+    border-radius: 200px;
+    padding: 0.3rem;
+    top: 1.7rem;
+}
+
+/* Liked page button */
+.liked-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.liked-btn:hover {
+    border-color: #ff4b4b;
+    transform: scale(1.05);
+    background: rgba(255, 75, 75, 0.1);
+}
+
+.liked-btn .material-icons {
+    font-size: 22px;
+    color: #ff4b4b;  /* Always red */
+}
+
+/* Adjust home button margin */
+.home-btn {
+    position: static;  /* Remove absolute positioning */
+    transform: none;   /* Remove transform */
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .action-buttons-right {
+        gap: 0.3rem;
+    }
+    
+    .liked-btn, .home-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .liked-btn .material-icons {
+        font-size: 20px;
+    }
+}
+
+/* Back button transparent hover */
+.back-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: transparent;  /* Keep transparent */
+    border-color: #ff9b00;    /* Just change border color */
+    transform: scale(1.02);
+}
+
+/* Fix movie meta alignment */
+.movie-meta {
+    display: flex;
+    align-items: center;  /* Align items vertically */
+    gap: 1.5rem;
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    color: #e5e5e5;
+    flex-wrap: wrap;
+}
+
+.movie-meta span {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;  /* Consistent line height */
+}
+
+.movie-meta .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+/* Adjust search section for home button */
+.search-section {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    clear: both;  /* Clear the float */
+}
+
+.home-btn, .liked-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(26, 26, 26, 0.8);  /* Slight background for visibility */
+    backdrop-filter: blur(4px);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+
+.search-container {
+    display: flex;
+    max-height: 3rem;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    background-color: #242424;
+    border-radius: 50px;
+    border: 2px solid #242424;
+    overflow: hidden;
+    margin: 0 auto;  
+}
+
+/* Responsive for home button */
+@media (max-width: 768px) {
+    .home-btn {
+        top: 0.25rem;
+        right: 0.001rem;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .home-btn .material-icons {
+        font-size: 20px;
+    }
+}
+/* Movie Grid Styles - Add this at the end of your CSS file */
+.movies-section {
+    margin-top: 2rem;
+}
+
+.movies-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 2rem;
+}
+
+.movie-card {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.movie-card .image-container {
+    position: relative;
+    width: 100%;
+    height: 270px;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
+.movie-info {
+    padding: 0.8rem 0;
+}
+
+.movie-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #e5e5e5;
+    margin-bottom: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.title-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;  /* Takes available space but allows rating to stay right */
+    margin-right: 0.5rem;  /* Space between title and rating */
+}
+
+.rating-badge {
+    color: #ffb400;  /* Gold color for rating */
+    font-weight: bold;
+    flex-shrink: 0;  /* Prevents rating from shrinking */
+}
+
+.movie-year {
+    font-size: 0.9rem;
+    color: #808080;
+}
+
+/* Hover overlay effect */
+.movie-card .image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 90%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 4px;
+}
+
+.movie-card:hover .image-container::after {
+    opacity: 1;
+}
+/* Loading state */
+.loading {
+    text-align: center;
+    padding: 3rem;
+    color: #808080;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .movies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+    
+    .movie-card img {
+        height: 210px;
+    }
+}
+
+/* ===== CUSTOM SCROLLBAR - NO ARROWS, MATCHES PAGE ===== */
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #ff9b00 #1a1a1a;  /* Thumb orange, track dark */
+}
+
+/* For Chrome, Edge, Safari - COMPLETE OVERRIDE */
+::-webkit-scrollbar {
+    width: 8px;  /* Slightly thinner */
+    height: 8px;
+    background: transparent;  /* Make background transparent */
+}
+
+/* Hide ALL button elements completely */
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:single-button,
+::-webkit-scrollbar-button:vertical,
+::-webkit-scrollbar-button:horizontal,
+::-webkit-scrollbar-button:start,
+::-webkit-scrollbar-button:end,
+::-webkit-scrollbar-button:increment,
+::-webkit-scrollbar-button:decrement {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    opacity: 0 !important;
+}
+
+/* Track (the background) */
+::-webkit-scrollbar-track {
+    background: #1a1a1a;  /* Match main background */
+    border-radius: 10px;
+}
+
+/* Handle (the moving part) */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #ff9b00, #eb2412);
+    border-radius: 10px;
+    border: 2px solid #1a1a1a;  /* Creates gap effect */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #ff6f00, #eb2412);
+}
+
+/* Corner when both scrollbars present */
+::-webkit-scrollbar-corner {
+    background: #1a1a1a;
+}
+
+/* Heart Button Styles - Smaller and Transparent */
+.heart-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 28px;           /* Smaller */
+    height: 28px;          /* Smaller */
+    border-radius: 50%;
+    background: transparent;  /* Completely transparent */
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.6);  /* Slim white border */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.heart-btn .material-icons {
+    color: white;
+    font-size: 16px;       /* Smaller icon */
+    transition: all 0.2s ease;
+}
+
+/* Hover effect - subtle scale */
+.heart-btn:hover {
+    transform: scale(1.1);
+    border-color: rgba(255, 75, 75, 0.8);  /* Border becomes reddish on hover */
+}
+
+/* Liked state - heart turns red */
+.heart-btn.liked .material-icons {
+    color: #ff4b4b !important;  /* Bright red when liked */
+}
+
+/* No background change on hover when liked */
+.heart-btn.liked:hover {
+    border-color: rgba(255, 75, 75, 0.8);
+}
+
+/* Movie Details Styles */
+.movie-details-container {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.movie-hero {
+    height: 400px;
+    background-size: cover;
+    background-position: center top;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.hero-content .year {
+    font-size: 2rem;
+    color: #ff9b00;
+    font-weight: 400;
+}
+
+.movie-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    color: #e5e5e5;
+    flex-wrap: wrap;
+}
+
+.trailer-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #ff9b00;
+    color: black;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    height: 48px;
+    transition: all 0.2s ease;
+}
+
+.trailer-btn:hover {
+    background: #ffb400;
+    transform: scale(1.05);
+}
+
+.movie-details-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+}
+
+.movie-poster-detail img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.movie-info-detail h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #ff9b00;
+}
+
+.overview {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #b0b0b0;
+    margin-bottom: 2rem;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: 0.9rem;
+    color: #808080;
+    margin-bottom: 0.3rem;
+}
+
+.detail-value {
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .movie-hero {
+        height: 300px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content .year {
+        font-size: 1.5rem;
+    }
+    
+    .movie-details-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .movie-poster-detail {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.sidebar-header {
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(255, 155, 0, 0.1) 0%, rgba(235, 36, 18, 0.1) 100%);
+    border-bottom: 2px solid rgba(255, 155, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;  /* ✅ Stays visible while scrolling */
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;    /* ✅ Don't shrink */
+}
+
+.sidebar-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #ff9b00, #eb2412);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+}
+
+.close-sidebar {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.close-sidebar:hover {
+    background: rgba(255, 155, 0, 0.2);
+}
+
+.sidebar-content {
+    padding: 1.5rem;
+    flex: 1;           /* ✅ Takes remaining space */
+    overflow-y: visible; /* ✅ Let parent (.sidebar) handle scroll */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Filter Sections */
+.filter-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filter-section:last-of-type {
+    border-bottom: none;
+}
+
+.filter-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ff9b00;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Genre Checkboxes */
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.filter-option:hover {
+    background: rgba(255, 155, 0, 0.1);
+}
+
+.filter-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.8rem;
+    accent-color: #ff9b00;
+    cursor: pointer;
+}
+
+.filter-option span {
+    font-size: 0.95rem;
+    color: #e5e5e5;
+}
+
+/* Year Filter */
+.year-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.year-filter input[type="number"] {
+    flex: 1;
+    padding: 0.7rem;
+    background: #242424;
+    border: 1px solid rgba(255, 155, 0, 0.3);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.year-filter input[type="number"]:focus {
+    border-color: #ff9b00;
+    box-shadow: 0 0 0 3px rgba(255, 155, 0, 0.1);
+}
+
+.year-filter span {
+    color: #ff9b00;
+    font-weight: 600;
+}
+
+/* Rating Slider */
+.rating-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #808080;
+}
+
+#ratingFilter {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, #ff9b00, #eb2412);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+#ratingFilter::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ff9b00;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(255, 155, 0, 0.4);
+    transition: all 0.2s;
+}
+
+#ratingFilter::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 12px rgba(255, 155, 0, 0.6);
+}
+
+#ratingFilter::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ff9b00;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(255, 155, 0, 0.4);
+}
+
+/* Select Dropdown */
+.filter-select {
+    width: 100%;
+    padding: 0.8rem;
+    background: #242424;
+    border: 1px solid rgba(255, 155, 0, 0.3);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.filter-select:focus {
+    border-color: #ff9b00;
+    box-shadow: 0 0 0 3px rgba(255, 155, 0, 0.1);
+}
+
+.filter-select option {
+    background: #242424;
+    color: white;
+    padding: 0.5rem;
+}
+
+/* Buttons */
+.apply-filters-btn,
+.reset-filters-btn {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.apply-filters-btn {
+    background: linear-gradient(135deg, #ff9b00 0%, #fc8300 100%);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 155, 0, 0.3);
+}
+
+.apply-filters-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 155, 0, 0.4);
+}
+
+.apply-filters-btn:active {
+    transform: translateY(0);
+}
+
+.reset-filters-btn {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #e5e5e5;
+}
+
+.reset-filters-btn:hover {
+    border-color: #ff9b00;
+    color: #ff9b00;
+    background: rgba(255, 155, 0, 0.05);
+}
+
+/* Active filter indicator */
+.filter-option input[type="checkbox"]:checked + span {
+    color: #ff9b00;
+    font-weight: 500;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -320px;
+        top: 0;
+        bottom: 0;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+    
+    .close-sidebar {
+        display: block;
+    }
+}
+
+/* Scrollbar for sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #ff9b00, #eb2412);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #ff6f00, #eb2412);
+}
+
+/* Firefox */
+.sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: #ff9b00 transparent;
+}

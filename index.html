@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Master</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <button class="menu-toggle" id="menuToggle">
+        <span class="material-icons">menu</span>
+    </button>
+
+    <!-- Overlay when sidebar is open -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>🎬 Movie Master</h1>
+            <button class="close-sidebar" id="closeSidebar">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+
+        <div class="sidebar-content">
+            <!-- Genre Filter -->
+            <div class="filter-section">
+                <h3>Genre</h3>
+                <div class="filter-options" id="genreFilters">
+                    <label class="filter-option">
+                        <input type="checkbox" value="28" data-genre="Action">
+                        <span>Action</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="35" data-genre="Comedy">
+                        <span>Comedy</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="18" data-genre="Drama">
+                        <span>Drama</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="27" data-genre="Horror">
+                        <span>Horror</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="878" data-genre="Sci-Fi">
+                        <span>Science Fiction</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="53" data-genre="Thriller">
+                        <span>Thriller</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="10749" data-genre="Romance">
+                        <span>Romance</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="12" data-genre="Adventure">
+                        <span>Adventure</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Year Filter -->
+            <div class="filter-section">
+                <h3>Release Year</h3>
+                <div class="year-filter">
+                    <input type="number" id="yearFrom" placeholder="От" min="1900" max="2026">
+                    <span>—</span>
+                    <input type="number" id="yearTo" placeholder="До" min="1900" max="2026">
+                </div>
+            </div>
+
+            <!-- Rating Filter -->
+            <div class="filter-section">
+                <h3>Rating: <span id="ratingValue">0+</span></h3>
+                <input type="range" id="ratingFilter" min="0" max="10" step="0.5" value="0">
+                <div class="rating-labels">
+                    <span>0</span>
+                    <span>5</span>
+                    <span>10</span>
+                </div>
+            </div>
+
+            <!-- Sort By -->
+            <div class="filter-section">
+                <h3>Sort By</h3>
+                <select id="sortBy" class="filter-select">
+                    <option value="popularity.desc">Популярности ↓</option>
+                    <option value="popularity.asc">Популярности ↑</option>
+                    <option value="vote_average.desc">Рейтингу ↓</option>
+                    <option value="vote_average.asc">Рейтингу ↑</option>
+                    <option value="release_date.desc">Дате выхода ↓</option>
+                    <option value="release_date.asc">Дате выхода ↑</option>
+                    <option value="title.asc">Названию А-Я</option>
+                    <option value="title.desc">Названию Я-А</option>
+                </select>
+            </div>
+
+            <!-- Apply Button -->
+            <button id="applyFilters" class="apply-filters-btn">
+                <span class="material-icons">filter_list</span>
+                Apply Filters
+            </button>
+
+            <button id="resetFilters" class="reset-filters-btn">
+                Reset Filters
+            </button>
+        </div>
+    </div>
+
+    <main>
+        <!-- Move action-buttons-right HERE, outside search-section -->
+        <div class="action-buttons-right">
+            <button id="likedBtn" class="liked-btn">
+                <span class="material-icons">favorite</span>
+            </button>
+            <button id="homeBtn" class="home-btn">
+                <span class="material-icons">home</span>
+            </button>
+        </div>
+
+        <div class="search-section">
+            <div class="search-container">
+                <input autocomplete="off" type="text" id="searchInput" placeholder="Search for movies...">
+                <button id="searchBtn"><span class="material-icons">search</span></button>
+            </div>
+        </div>
+
+        <div class="movies-section">
+            <h2>Popular Movies</h2>
+            <div class="movies-grid">
+            </div>
+        </div>
+    </main>
+    
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
