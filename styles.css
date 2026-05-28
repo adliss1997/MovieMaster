@@ -989,6 +989,7 @@ main {
     border: none;
     color: white;
     box-shadow: 0 4px 15px rgba(255, 155, 0, 0.3);
+    
 }
 
 .apply-filters-btn:hover {
@@ -1061,4 +1062,95 @@ main {
 .sidebar {
     scrollbar-width: thin;
     scrollbar-color: #ff9b00 transparent;
+}
+/* === Глобальный фикс: поисковая строка не заезжает под кнопки === */
+
+/* Резервируем место справа для фиксированных кнопок */
+.search-section {
+    padding-right: 160px; /* 2 кнопки (45px) + gap (8px) + padding + margin */
+    transition: padding-right 0.2s ease;
+}
+
+.search-container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Чтобы input корректно сжимался внутри flex-контейнера */
+#searchInput {
+    min-width: 0;
+    width: 100%;
+}
+/* Планшеты (769px – 1024px) */
+@media (max-width: 1024px) {
+    .search-section {
+        padding-right: 140px; /* Чуть меньше места */
+    }
+}
+
+/* Мобильные (до 768px) */
+@media (max-width: 768px) {
+    .action-buttons-right {
+        right: 1rem;
+        top: 1rem;
+        padding: 0.25rem;
+        background: rgba(36, 36, 36, 0.95);
+        backdrop-filter: blur(8px);
+    }
+    .menu-toggle {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1001;
+        width: 45px;
+        height: 45px;
+    }
+    .liked-btn, .home-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .search-section {
+        /* Отступы: сверху (под гамбургер по вертикали), слева и справа */
+        padding: 0 110px 0 70px; /* left: под гамбургер, right: под кнопки */
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .search-container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0; /* Убираем auto, чтобы padding родителя работал корректно */
+    }
+}
+
+/* Очень маленькие экраны (до 480px) */
+@media (max-width: 480px) {
+    .search-section {
+        padding: 0 95px 0 65px; /* Чуть меньше отступы */
+    }
+    
+    .menu-toggle {
+        width: 40px;
+        height: 40px;
+        top: 0.75rem;
+        left: 0.75rem;
+    }
+    
+    .action-buttons-right {
+        right: 0.75rem;
+        top: 0.75rem;
+        gap: 0.25rem;
+    }
+    
+    .liked-btn, .home-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    #searchInput {
+        font-size: 0.9rem;
+        padding: 0.7rem 0.9rem;
+    }
 }

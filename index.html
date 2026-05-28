@@ -26,46 +26,46 @@
         <div class="sidebar-content">
             <!-- Genre Filter -->
             <div class="filter-section">
-                <h3>Genre</h3>
+                <h3>Жанр</h3>
                 <div class="filter-options" id="genreFilters">
                     <label class="filter-option">
                         <input type="checkbox" value="28" data-genre="Action">
-                        <span>Action</span>
+                        <span>Экшн</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" value="35" data-genre="Comedy">
-                        <span>Comedy</span>
+                        <span>Комедия</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" value="18" data-genre="Drama">
-                        <span>Drama</span>
+                        <span>Драма</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" value="27" data-genre="Horror">
-                        <span>Horror</span>
+                        <span>Ужасы</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" value="878" data-genre="Sci-Fi">
-                        <span>Science Fiction</span>
+                        <span>Научная Фантастика</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" value="53" data-genre="Thriller">
-                        <span>Thriller</span>
+                        <span>Триллер</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" value="10749" data-genre="Romance">
-                        <span>Romance</span>
+                        <span>Романтика</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" value="12" data-genre="Adventure">
-                        <span>Adventure</span>
+                        <span>Приключения</span>
                     </label>
                 </div>
             </div>
 
             <!-- Year Filter -->
             <div class="filter-section">
-                <h3>Release Year</h3>
+                <h3>Год выпуска</h3>
                 <div class="year-filter">
                     <input type="number" id="yearFrom" placeholder="От" min="1900" max="2026">
                     <span>—</span>
@@ -75,7 +75,7 @@
 
             <!-- Rating Filter -->
             <div class="filter-section">
-                <h3>Rating: <span id="ratingValue">0+</span></h3>
+                <h3>Рейтинг: <span id="ratingValue">0+</span></h3>
                 <input type="range" id="ratingFilter" min="0" max="10" step="0.5" value="0">
                 <div class="rating-labels">
                     <span>0</span>
@@ -86,7 +86,7 @@
 
             <!-- Sort By -->
             <div class="filter-section">
-                <h3>Sort By</h3>
+                <h3>Сортировка по</h3>
                 <select id="sortBy" class="filter-select">
                     <option value="popularity.desc">Популярности ↓</option>
                     <option value="popularity.asc">Популярности ↑</option>
@@ -102,11 +102,11 @@
             <!-- Apply Button -->
             <button id="applyFilters" class="apply-filters-btn">
                 <span class="material-icons">filter_list</span>
-                Apply Filters
+                Применить фильтры
             </button>
 
             <button id="resetFilters" class="reset-filters-btn">
-                Reset Filters
+                Сбросить фильтры
             </button>
         </div>
     </div>
@@ -124,13 +124,13 @@
 
         <div class="search-section">
             <div class="search-container">
-                <input autocomplete="off" type="text" id="searchInput" placeholder="Search for movies...">
+                <input autocomplete="off" type="text" id="searchInput" placeholder="Поиск фильмов...">
                 <button id="searchBtn"><span class="material-icons">search</span></button>
             </div>
         </div>
 
         <div class="movies-section">
-            <h2>Popular Movies</h2>
+            <h2>Популярные фильмы</h2>
             <div class="movies-grid">
             </div>
         </div>

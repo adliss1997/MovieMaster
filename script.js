@@ -166,7 +166,7 @@ async function searchMovies(query) {
     moviesGrid.innerHTML = '<div class="loading">Searching movies...</div>';
     
     // Change title to "Results"
-    document.querySelector('.movies-section h2').textContent = `Results for "${query}"`;
+    document.querySelector('.movies-section h2').textContent = `Результаты поиска для "${query}"`;
     
     try {
         const response = await fetch(
@@ -263,7 +263,7 @@ function displayMovieDetails(movie) {
     
     detailsContainer.innerHTML = `
         <button class="back-btn">
-            <span class="material-icons">arrow_back</span> Back to movies
+            <span class="material-icons">arrow_back</span> Обратно
         </button>
         
         <div class="movie-hero" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(26,26,26,1)), url('${backdropPath}')">
@@ -491,7 +491,7 @@ async function applyFilters() {
         }
         
         displayMovies(filteredMovies);
-        document.querySelector('.movies-section h2').textContent = 'Filtered Movies';
+        document.querySelector('.movies-section h2').textContent = 'Фильмы по вашим фильтрам';
         
     } catch (error) {
         console.error('Error applying filters:', error);
@@ -674,7 +674,7 @@ function showLikedMovies() {
     
     // Show loading
     document.querySelector('.movies-grid').innerHTML = '<div class="loading">Loading your liked movies...</div>';
-    document.querySelector('.movies-section h2').textContent = 'Your Liked Movies';
+    document.querySelector('.movies-section h2').textContent = 'Ваши понравившиеся фильмы';
     
     // Fetch each liked movie
     Promise.all(likedIds.map(id => 
